@@ -1,35 +1,36 @@
 import React from "react";
-import SignIn from "../../screens/SignIn";
-import SignUp from "../../screens/SignUp";
+import { SignIn, SignUp, Home } from "../../screens";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Screens } from "../../constants/Screens";
-const Stack = createNativeStackNavigator();
+import TQPKHeader from "../../components/Header/TQPKHeader";
+import { StackParamList } from "./StackNavigatorType";
+const Stack = createNativeStackNavigator<StackParamList>();
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName={Screens.SIGN_IN}
-    >
+    <Stack.Navigator initialRouteName={"SignIn"}>
       <Stack.Screen
-        name={Screens.SIGN_IN}
+        name={"SignIn"}
         component={SignIn}
-        options={
-          {
-            // title: "Sign In",
-            //   header: (props) => <HomeHeader {...props} />,
-          }
-        }
+        options={{
+          title: "Sign In",
+          header: (props) => <TQPKHeader isBack={false} {...props} />,
+        }}
       />
       <Stack.Screen
-        name={Screens.SIGN_UP}
+        name={"SignUp"}
         component={SignUp}
-        options={
-          {
-            // title: "Sign Up",
-            //   header: (props) => <HomeHeader {...props} />,
-          }
-        }
+        options={{
+          title: "Sign Up",
+          header: (props) => <TQPKHeader {...props} />,
+        }}
+      />
+      <Stack.Screen
+        name={"Home"}
+        component={Home}
+        options={{
+          title: "Home",
+          header: (props) => <TQPKHeader isBack={false} {...props} />,
+        }}
       />
     </Stack.Navigator>
   );

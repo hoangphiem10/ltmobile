@@ -1,16 +1,30 @@
 import { Api } from ".";
-import { ILoginRequest, ILoginResponse } from "../services/auth.service";
+import {
+  ISignInRequest,
+  ISignInResponse,
+  ISignUpRequest,
+  ISignUpResponse,
+} from "../services/auth.service";
 const AUTH_API = {
   signin: "auth/signin",
   signup: "auth/signup",
+  refreshToken: "auth/refreshToken",
 };
 
 export const AuthAPI = {
   /**
    * Call api login
-   * @param {Object} data Object
+   * @param {Object} data ISignInRequest
    */
-  signin(data: ILoginRequest) {
-    Api.post<ILoginRequest, ILoginResponse>(AUTH_API.signin, data);
+  signin(data: ISignInRequest) {
+    return Api.post<ISignInRequest, ISignInResponse>(AUTH_API.signin, data);
+  },
+
+  /**
+   * Call api login
+   * @param {Object} data ISignInRequest
+   */
+  signup(data: ISignUpRequest) {
+    return Api.post<ISignUpRequest, ISignUpResponse>(AUTH_API.signup, data);
   },
 };

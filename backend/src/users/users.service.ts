@@ -21,12 +21,12 @@ export class UsersService {
 
   /**
    * Create user account
-   * @param {Object} user Object
+   * @param {Object} userSignUp Object
    * @param {string} password String
    */
-  async createUser(user: CreateUserDto, password: string) {
+  async createUser(userSignUp: CreateUserDto, password: string) {
     return await this.userModel.create({
-      ...user,
+      ...userSignUp,
       password,
     });
   }

@@ -1,7 +1,13 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
 import jwt_decode from "jwt-decode";
 import { Ijwt } from "../services/auth.service";
 import { Helper } from "../helper/helper";
+import { Constants } from "../constants/constants";
 
 enum StatusCode {
   Unauthorized = 401,
@@ -17,7 +23,15 @@ const headers: Readonly<Record<string, string | boolean>> = {
   "Access-Control-Allow-Credentials": true,
   "X-Requested-With": "XMLHttpRequest",
 };
-
+const Config = {
+  baseURL: Constants.API.BASE_URL,
+  method: {
+    get: "GET",
+    post: "POST",
+    put: "PUT",
+    delete: "DELETE",
+  },
+};
 const injectToken = async (config: any) => {
   try {
     let date = new Date();
@@ -26,11 +40,13 @@ const injectToken = async (config: any) => {
     const decoded: Ijwt = jwt_decode(token);
     const t = date.getTime() / 1000;
     if (decoded.exp < date.getTime() / 1000) {
-      // const data = await userService.refreshToken();
-      // config.headers = {
-      //   ...config.headers,
-      //   Authorization: `Bearer ${data.accessToken}`,
-      // };
+      const res = await axios.post("auth/refreshToken", {
+        withCredentials: true,
+      });
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${res.data.accessToken}`,
+      };
     }
     return config;
   } catch (error: any) {
@@ -45,7 +61,7 @@ class Http {
   }
   initHttp() {
     const http = axios.create({
-      baseURL: "http://localhost:8080/api/",
+      baseURL: Config.baseURL,
       headers,
     });
     http.interceptors.request.use(injectToken, (error) =>
@@ -64,7 +80,9 @@ class Http {
     url: string,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return this.http.get<T, R>(url, config);
+    const promise = this.http.get<T, R>(url, config);
+    this.handleAfterFetch(promise);
+    return promise;
   }
 
   post<T = any, F = any, R = AxiosResponse<F>>(
@@ -72,7 +90,9 @@ class Http {
     data?: T,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return this.http.post<T, R>(url, data, config);
+    const promise = this.http.post<T, R>(url, data, config);
+    this.handleAfterFetch(promise);
+    return promise;
   }
 
   put<T = any, R = AxiosResponse<T>>(
@@ -80,7 +100,9 @@ class Http {
     data?: T,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return this.http.put<T, R>(url, data, config);
+    const promise = this.http.put<T, R>(url, data, config);
+    this.handleAfterFetch(promise);
+    return promise;
   }
 
   patch<T = any, F = any, R = AxiosResponse<F>>(
@@ -88,37 +110,39 @@ class Http {
     data?: T,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return this.http.patch<T, R>(url, data, config);
+    const promise = this.http.patch<T, R>(url, data, config);
+    this.handleAfterFetch(promise);
+    return promise;
   }
 
   delete<T = any, R = AxiosResponse<T>>(
     url: string,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    return this.http.delete<T, R>(url, config);
+    const promise = this.http.delete<T, R>(url, config);
+    this.handleAfterFetch(promise);
+    return promise;
   }
-  private handleError(error: any) {
-    const { status } = error;
-
-    switch (status) {
-      case StatusCode.InternalServerError: {
-        // Handle InternalServerError
-        break;
-      }
-      case StatusCode.Forbidden: {
-        // Handle Forbidden
-        break;
-      }
-      case StatusCode.Unauthorized: {
-        // Handle Unauthorized
-        break;
-      }
-      case StatusCode.TooManyRequests: {
-        // Handle TooManyRequests
-        break;
-      }
-    }
-    return Promise.reject(error.data);
+  private handleAfterFetch(promise: Promise<any>) {
+    promise
+      .then((res: AxiosResponse) => {
+        if (__DEV__) {
+          console.log(
+            `%c #AxiosSuccess: [url: ${res.config.baseURL}${res.config.url}] [method: ${res.config.method} - status: ${res.status}]`,
+            Constants.STYLES.CONSOLE_LOG_SUCCESS
+          );
+          console.log("responseData: ", res.data);
+        }
+      })
+      .catch((err: any) => {
+        if (__DEV__) {
+          console.log(
+            `%c #AxioError: [message: ${err.response?.data.message}] [method: ${err.request._method} - status: ${err.request.status}] [url: ${err.request.responseURL}] `,
+            Constants.STYLES.CONSOLE_LOG_ERROR
+          );
+          console.log("responseError: ", err);
+        }
+      });
   }
 }
 

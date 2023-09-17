@@ -6,12 +6,19 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { store } from "./src/redux/store";
+import { Provider } from "react-redux";
+import TQPKToast from "./src/components/Toast/TQPKToast";
+
 export default function App() {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <StackNavigator />
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <StackNavigator />
+        </NavigationContainer>
+        <TQPKToast />
+      </Provider>
     </SafeAreaProvider>
   );
 }

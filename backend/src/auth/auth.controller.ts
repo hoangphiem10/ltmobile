@@ -19,11 +19,11 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  async signup(@Body() user: CreateUserDto) {
-    const { password } = user;
+  async signup(@Body() userSignUp: CreateUserDto) {
+    const { password } = userSignUp;
     const saltOrRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltOrRounds);
-    return await this.authService.signup(user, hashedPassword);
+    return await this.authService.signup(userSignUp, hashedPassword);
   }
 
   @Post('signin')

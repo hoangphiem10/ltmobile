@@ -38,16 +38,21 @@ export class AuthService {
 
   /**
    * Register account
-   * @param {Object} user Object
+   * @param {Object} userSignUp CreateUserDto
    * @param {string} password String
    */
-  async signup(user: CreateUserDto, password: string) {
-    return await this.userService.createUser(user, password);
+  async signup(userSignUp: CreateUserDto, password: string) {
+    const { email } = userSignUp;
+    const user = await this.userService.findUserByEmail(email);
+    if (user) {
+      throw new HttpException('This Email exists !', HttpStatus.CONFLICT);
+    }
+    return await this.userService.createUser(userSignUp, password);
   }
 
   /**
    * Login function
-   * @param {Object} userLogin Object
+   * @param {Object} userLogin userLoginDto
    * @param {Response} res Response
    */
   async signin(userLogin: userLoginDto, res: Response) {
@@ -82,7 +87,7 @@ export class AuthService {
     });
     const _user = { ...user.toObject() };
     delete _user.password;
-    return res.status(HttpStatus.OK).send({ accessToken, _user });
+    return res.status(HttpStatus.OK).send({ accessToken, user: _user });
   }
 
   /**
