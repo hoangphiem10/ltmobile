@@ -42,7 +42,7 @@ const toastConfig = {
 };
 
 const TQPKToast = () => {
-  return <Toast config={toastConfig} autoHide={true} visibilityTime={1500} />;
+  return <Toast config={toastConfig} autoHide={true} visibilityTime={1000} />;
 };
 
 export default TQPKToast;

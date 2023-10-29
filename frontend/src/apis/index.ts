@@ -67,42 +67,62 @@ class Http {
     http.interceptors.request.use(injectToken, (error) =>
       Promise.reject(error)
     );
+    http.interceptors.response.use(
+      (res) => {
+        this.handleAfterFetchSuccess(res);
+        return res;
+      },
+      (err) => {
+        this.handleAfterFetchError(err);
+        return Promise.reject(err);
+      }
+    );
     this.instance = http;
     return http;
   }
-  request<T = any, R = AxiosResponse<T>>(
-    config: AxiosRequestConfig
-  ): Promise<R> {
+  private handleAfterFetchSuccess(res: AxiosResponse) {
+    if (__DEV__) {
+      console.log(
+        `%c #AxiosSuccess: [url: ${res.config.baseURL}${res.config.url}] [method: ${res.config.method} - status: ${res.status}]`,
+        Constants.STYLES.CONSOLE_LOG_SUCCESS
+      );
+      console.log("responseData: ", res.data);
+    }
+  }
+  private handleAfterFetchError(err: any) {
+    if (__DEV__) {
+      console.log(
+        `%c #AxioError: [message: ${err.response?.data.message}] [method: ${err.request._method} - status: ${err.request.status}] [url: ${err.request.responseURL}] `,
+        Constants.STYLES.CONSOLE_LOG_ERROR
+      );
+      console.log("responseError: ", err);
+    }
+  }
+  request<T, R = AxiosResponse<T>>(config: AxiosRequestConfig): Promise<R> {
     return this.http.request(config);
   }
 
-  get<T = any, R = AxiosResponse<T>>(
+  get<T, R = AxiosResponse<T>>(
     url: string,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    const promise = this.http.get<T, R>(url, config);
-    this.handleAfterFetch(promise);
-    return promise;
+    return this.http.get<T, R>(url, config);
   }
 
-  post<T = any, F = any, R = AxiosResponse<F>>(
+  post<T, F = any, R = AxiosResponse<F>>(
     url: string,
     data?: T,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    const promise = this.http.post<T, R>(url, data, config);
-    this.handleAfterFetch(promise);
-    return promise;
+    return this.http.post<T, R>(url, data, config);
   }
 
-  put<T = any, R = AxiosResponse<T>>(
+  put<T, R = AxiosResponse<T>>(
     url: string,
     data?: T,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    const promise = this.http.put<T, R>(url, data, config);
-    this.handleAfterFetch(promise);
-    return promise;
+    return this.http.put<T, R>(url, data, config);
   }
 
   patch<T = any, F = any, R = AxiosResponse<F>>(
@@ -110,39 +130,14 @@ class Http {
     data?: T,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    const promise = this.http.patch<T, R>(url, data, config);
-    this.handleAfterFetch(promise);
-    return promise;
+    return this.http.patch<T, R>(url, data, config);
   }
 
   delete<T = any, R = AxiosResponse<T>>(
     url: string,
     config?: AxiosRequestConfig
   ): Promise<R> {
-    const promise = this.http.delete<T, R>(url, config);
-    this.handleAfterFetch(promise);
-    return promise;
-  }
-  private handleAfterFetch(promise: Promise<any>) {
-    promise
-      .then((res: AxiosResponse) => {
-        if (__DEV__) {
-          console.log(
-            `%c #AxiosSuccess: [url: ${res.config.baseURL}${res.config.url}] [method: ${res.config.method} - status: ${res.status}]`,
-            Constants.STYLES.CONSOLE_LOG_SUCCESS
-          );
-          console.log("responseData: ", res.data);
-        }
-      })
-      .catch((err: any) => {
-        if (__DEV__) {
-          console.log(
-            `%c #AxioError: [message: ${err.response?.data.message}] [method: ${err.request._method} - status: ${err.request.status}] [url: ${err.request.responseURL}] `,
-            Constants.STYLES.CONSOLE_LOG_ERROR
-          );
-          console.log("responseError: ", err);
-        }
-      });
+    return this.http.delete<T, R>(url, config);
   }
 }
 

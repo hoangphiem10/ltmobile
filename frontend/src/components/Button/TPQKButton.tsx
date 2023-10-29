@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from "react-native";
 
-interface LoadingButtonProps {
+interface ButtonProps {
   text: string;
   onPress?: ((event: GestureResponderEvent) => void) | undefined;
   isLoading?: boolean;
@@ -18,7 +18,7 @@ interface LoadingButtonProps {
   style?: StyleProp<ViewStyle>;
   type?: string;
 }
-const TPQKLoadingBtn = ({
+const TPQKButton = ({
   text,
   isLoading = false,
   onPress = undefined,
@@ -26,7 +26,7 @@ const TPQKLoadingBtn = ({
   children,
   style = {},
   type = "",
-}: LoadingButtonProps) => {
+}: ButtonProps) => {
   return (
     <View style={[styles.container]}>
       <TouchableOpacity onPress={onPress} disabled={disabled || isLoading}>
@@ -34,7 +34,7 @@ const TPQKLoadingBtn = ({
           style={[
             {
               ...styles.button,
-              backgroundColor: disabled ? "gainsboro" : "#1E90FF",
+              backgroundColor: disabled ? "gainsboro" : "#129575",
             },
             style,
           ]}
@@ -63,9 +63,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     width: "100%",
     height: 40,
+    borderRadius: 8,
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontWeight: "600",
     fontSize: 14,
   },
@@ -74,4 +75,4 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 });
-export default TPQKLoadingBtn;
+export default TPQKButton;

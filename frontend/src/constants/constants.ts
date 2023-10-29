@@ -6,4 +6,7 @@ export const Constants = {
     CONSOLE_LOG_SUCCESS: "background:green;",
     CONSOLE_LOG_ERROR: "background:red",
   },
+  Images: {
+    avatar: require("../assets/images/ishowspeed.jpeg"),
+  },
 };

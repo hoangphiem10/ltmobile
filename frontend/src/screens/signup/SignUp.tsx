@@ -5,7 +5,7 @@ import { Formik, FormikProps } from "formik";
 import TQPKTextInput from "../../components/TextInput/TQPKTextInput";
 import { SignUpStyles } from "./style";
 import { SignUpProps } from "../../navigators/Stack/StackNavigatorType";
-import TPQKLoadingBtn from "../../components/LoadingButton/TPQKLoadingBtn";
+import TPQKButton from "../../components/Button/TPQKButton";
 import {
   ISignUpRequest,
   authService,
@@ -96,7 +96,7 @@ const SignUp = ({ route, navigation }: SignUpProps) => {
                     error={touched.confirmPassword && errors.confirmPassword}
                   />
                 </View>
-                <TPQKLoadingBtn
+                <TPQKButton
                   text="Sign Up"
                   isLoading={isSubmitting}
                   disabled={isSubmitting}

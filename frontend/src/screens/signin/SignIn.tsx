@@ -5,7 +5,7 @@ import { Formik, FormikProps } from "formik";
 import TQPKTextInput from "../../components/TextInput/TQPKTextInput";
 import { signInStyles } from "./style";
 import { SignInProps } from "../../navigators/Stack/StackNavigatorType";
-import TPQKLoadingBtn from "../../components/LoadingButton/TPQKLoadingBtn";
+import TPQKButton from "../../components/Button/TPQKButton";
 import {
   ISignInRequest,
   ISignInResponse,
@@ -32,13 +32,14 @@ const SignIn = ({ route, navigation }: SignInProps) => {
           _id,
           fullname,
           email,
+          avatar: "",
         };
         await Helper.Secure.setString("accessToken", accessToken);
         dispatch(userLoggedIn(_userLoggedIn));
         Toast.show({
           text1: "Sign in successfully",
           type: "success",
-          onHide: () => navigation.navigate("Home"),
+          onHide: () => navigation.navigate("MainApp", { screen: "Home" }),
         });
       })
       .catch((err) => {
@@ -92,7 +93,7 @@ const SignIn = ({ route, navigation }: SignInProps) => {
                     error={touched.password && errors.password}
                   />
                 </View>
-                <TPQKLoadingBtn
+                <TPQKButton
                   text="Sign In"
                   isLoading={isSubmitting}
                   disabled={isSubmitting}

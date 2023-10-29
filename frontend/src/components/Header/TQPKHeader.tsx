@@ -1,49 +1,67 @@
-import { NativeStackHeaderProps } from "@react-navigation/native-stack";
+import {
+  NativeStackHeaderProps,
+  NativeStackNavigationOptions,
+  NativeStackNavigationProp,
+} from "@react-navigation/native-stack";
+import React from "react";
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-interface HeaderProps extends NativeStackHeaderProps {
+interface HeaderProps extends Partial<NativeStackHeaderProps> {
   isBack?: boolean;
+  LeftHeader?: React.ReactNode;
+  MiddleHeader?: React.ReactNode;
+  RightHeader?: React.ReactNode;
+  options?: NativeStackNavigationOptions;
+  navigation?: any;
   style?: StyleProp<ViewStyle>;
+  styleHeader?: StyleProp<ViewStyle>;
 }
 
 const TQPKHeader = ({
   isBack = true,
+  LeftHeader = null,
+  MiddleHeader = null,
+  RightHeader = null,
   options,
   navigation,
   style,
+  styleHeader,
 }: HeaderProps) => {
   return (
-    <SafeAreaView style={[styles.headerContainer, style]}>
-      <View style={styles.headerContent}>
+    <View style={[styles.headerContainer, style]}>
+      <View style={[styles.headerContent, styleHeader]}>
         {isBack && (
           <AntDesign
             size={20}
             style={styles.leftHeader}
             name="arrowleft"
-            color="#1E90FF"
+            color="#129575"
             onPress={() => navigation.goBack()}
           />
         )}
-        <Text style={styles.title}>{options.title}</Text>
+        {LeftHeader && <View>{LeftHeader}</View>}
+        {MiddleHeader && <View>{MiddleHeader}</View>}
+        {RightHeader && <View>{RightHeader}</View>}
+        {options && <Text style={styles.title}>{options?.title}</Text>}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    paddingLeft: 30,
+    paddingRight: 30,
   },
   headerContent: {
-    width: "90%",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
   title: {
-    color: "#1E90FF",
+    color: "#129575",
     fontWeight: "600",
   },
   leftHeader: {

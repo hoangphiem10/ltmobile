@@ -6,6 +6,7 @@ const initialState: IUser = {
   _id: "",
   fullname: "",
   email: "",
+  avatar: "",
 };
 const authSlice = createSlice({
   name: "auth",

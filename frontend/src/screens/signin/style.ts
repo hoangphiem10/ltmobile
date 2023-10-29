@@ -16,7 +16,7 @@ export const signInStyles = StyleSheet.create({
   },
   naviagteText: {
     fontSize: 16,
-    color: "#1E90FF",
+    color: "#129575",
     textDecorationLine: "underline",
   },
 });
