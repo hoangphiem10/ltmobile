@@ -1,5 +1,5 @@
 import React from "react";
-import { SignIn, SignUp, Home } from "../../screens";
+import { SignIn, SignUp, Onboarding } from "../../screens";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TQPKHeader from "../../components/Header/TQPKHeader";
 import { StackParamList } from "./StackNavigatorType";
@@ -8,7 +8,15 @@ const Stack = createNativeStackNavigator<StackParamList>();
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={"SignIn"}>
+    <Stack.Navigator initialRouteName={"Onboarding"}>
+      <Stack.Screen
+        name={"Onboarding"}
+        component={Onboarding}
+        // options={{
+        //   header: (props) => <TQPKHeader isBack={false} {...props} />,
+        // }}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name={"SignIn"}
         component={SignIn}
