@@ -1,10 +1,16 @@
-import { Dimensions, FlatList } from "react-native";
-import React, { useRef, useState } from "react";
+import {
+  Dimensions,
+  FlatList,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from "react-native";
+import React, { useRef } from "react";
 import OnboardItem, { IBoardingItem } from "../../components/Onboarding";
 import { OnboardingProps } from "../../navigators/Stack/StackNavigatorType";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Constants } from "../../constants/constants";
 import { Strings } from "../../constants/Strings";
+import { Screens } from "../../constants/Screens";
 const items: IBoardingItem[] = [
   {
     id: 1,
@@ -35,7 +41,7 @@ const Onboarding = ({ route, navigation }: OnboardingProps) => {
       flatListRef && flatListRef.current.scrollToOffset({ offset });
       setIndex(currIndex + 1);
     } else {
-      navigation.navigate("SignIn");
+      navigation.navigate(Screens.SIGN_IN);
     }
   };
   const handleSkip = () => {
@@ -44,7 +50,9 @@ const Onboarding = ({ route, navigation }: OnboardingProps) => {
     flatListRef && flatListRef.current.scrollToOffset({ offset });
     setIndex(lastSlideIndex);
   };
-  const updateCurrentSlideIndex = (e: any) => {
+  const updateCurrentSlideIndex = (
+    e: NativeSyntheticEvent<NativeScrollEvent>
+  ) => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
     const currentIndex = Math.round(contentOffsetX / width);
     setIndex(currentIndex);

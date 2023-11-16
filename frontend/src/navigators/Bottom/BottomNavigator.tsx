@@ -2,27 +2,28 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TabParamList } from "./BottomNavigatorType";
 import { Home, SavedRecipes, Notification, Profile } from "../../screens";
 import Icon from "react-native-vector-icons/Ionicons";
+import { Screens } from "../../constants/Screens";
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const BottomNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName={Screens.HOME}
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#129575",
         tabBarIcon: ({ color, size, focused }) => {
           let iconName;
-          if (route.name === "Home") {
+          if (route.name === Screens.HOME) {
             iconName = focused ? "ios-home-sharp" : "ios-home-outline";
-          } else if (route.name === "SavedRecipes") {
+          } else if (route.name === Screens.SAVED_RECIPES) {
             iconName = focused ? "md-bookmark" : "md-bookmark-outline";
-          } else if (route.name === "Notification") {
+          } else if (route.name === Screens.NOTIFICATION) {
             iconName = focused
               ? "md-notifications-sharp"
               : "md-notifications-outline";
-          } else if (route.name === "Profile") {
+          } else if (route.name === Screens.PROFILE) {
             iconName = focused ? "md-person" : "md-person-outline";
           }
 
@@ -31,22 +32,22 @@ const BottomNavigator = () => {
       })}
     >
       <Tab.Screen
-        name="Home"
+        name={Screens.HOME}
         component={Home}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="SavedRecipes"
+        name={Screens.SAVED_RECIPES}
         component={SavedRecipes}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Notification"
+        name={Screens.NOTIFICATION}
         component={Notification}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Profile"
+        name={Screens.PROFILE}
         component={Profile}
         options={{ headerShown: false }}
       />

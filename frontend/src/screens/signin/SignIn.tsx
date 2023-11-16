@@ -18,6 +18,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { userLoggedIn } from "../../redux/features/auth/authSlice";
 import { AxiosResponse } from "axios";
 import { Helper } from "../../helper/helper";
+import { Screens } from "../../constants/Screens";
 const SignIn = ({ route, navigation }: SignInProps) => {
   const dispatch = useAppDispatch();
   const handleSubmit = (values: ISignInRequest) => {
@@ -39,7 +40,8 @@ const SignIn = ({ route, navigation }: SignInProps) => {
         Toast.show({
           text1: "Sign in successfully",
           type: "success",
-          onHide: () => navigation.navigate("MainApp", { screen: "Home" }),
+          onHide: () =>
+            navigation.navigate(Screens.MAIN_APP, { screen: Screens.HOME }),
         });
       })
       .catch((err) => {
@@ -106,7 +108,7 @@ const SignIn = ({ route, navigation }: SignInProps) => {
         <View style={signInStyles.navigate}>
           <Text
             style={signInStyles.naviagteText}
-            onPress={() => navigation.push("SignUp")}
+            onPress={() => navigation.push(Screens.SIGN_UP)}
           >
             Sign up
           </Text>

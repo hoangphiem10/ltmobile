@@ -1,4 +1,8 @@
 export const Strings = {
+  Home: {
+    headerTitle: "Hello",
+    headerDescription: "What are you cooking today?",
+  },
   Onboarding: {
     Onboarding_1: {
       title: "Explore Various Food Recipes",

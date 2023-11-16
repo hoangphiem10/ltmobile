@@ -12,6 +12,7 @@ import {
   signUpValidationSchema,
 } from "../../services/auth.service";
 import Toast from "react-native-toast-message";
+import { Screens } from "../../constants/Screens";
 const SignUp = ({ route, navigation }: SignUpProps) => {
   const handleSubmit = async (values: ISignUpRequest) => {
     authService
@@ -20,7 +21,7 @@ const SignUp = ({ route, navigation }: SignUpProps) => {
         Toast.show({
           text1: "Sign up successfully",
           type: "success",
-          onHide: () => navigation.navigate("SignIn"),
+          onHide: () => navigation.navigate(Screens.SIGN_IN),
         });
       })
       .catch((err) => {

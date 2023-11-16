@@ -16,14 +16,19 @@ import { Constants } from "../../constants/constants";
 import TQPKTextInput from "../../components/TextInput/TQPKTextInput";
 import Icon from "react-native-vector-icons/Ionicons";
 import TPQKIconButton from "../../components/IconButton/TPQKIconButton";
+import { Strings } from "../../constants/Strings";
 const Home = ({ route, navigation }: HomeProps) => {
   const userLoggedIn = useAppSelector(currUser);
   const [search, setSearch] = useState("");
   const { fullname, avatar } = userLoggedIn;
   const LeftHeader = (): React.ReactNode => (
     <View>
-      <Text style={HomeStyles.headerTitle}>Hello {fullname}</Text>
-      <Text style={HomeStyles.headerDesc}>What are you cooking today?</Text>
+      <Text
+        style={HomeStyles.headerTitle}
+      >{`${Strings.Home.headerTitle} ${fullname}`}</Text>
+      <Text style={HomeStyles.headerDesc}>
+        {Strings.Home.headerDescription}
+      </Text>
     </View>
   );
   const RightHeader = (): React.ReactNode => (
