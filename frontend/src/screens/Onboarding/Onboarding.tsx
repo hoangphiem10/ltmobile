@@ -1,43 +1,74 @@
-import { Animated, FlatList, StyleSheet, Text, View } from "react-native";
+import { Dimensions, FlatList } from "react-native";
 import React, { useRef, useState } from "react";
 import OnboardItem, { IBoardingItem } from "../../components/Onboarding";
 import { OnboardingProps } from "../../navigators/Stack/StackNavigatorType";
-
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Constants } from "../../constants/constants";
+import { Strings } from "../../constants/Strings";
 const items: IBoardingItem[] = [
   {
     id: 1,
-    img: require("../../assets/images/onboard-1.png"),
-    title: "Explore Various Food Recipes",
-    description:
-      "Explore and find various food recipe from the ingredients that you have",
+    img: Constants.Images.onboarding_1,
+    title: Strings.Onboarding.Onboarding_1.title,
+    description: Strings.Onboarding.Onboarding_1.description,
   },
   {
     id: 2,
-    img: require("../../assets/images/onboard-2.png"),
-    title: "Share Your Best Food Recipes",
-    description:
-      "Share the best food recipes you have made and get lots of claps",
+    img: Constants.Images.onboarding_2,
+    title: Strings.Onboarding.Onboarding_2.title,
+    description: Strings.Onboarding.Onboarding_2.description,
   },
   {
     id: 3,
-    img: require("../../assets/images/onboard-3.png"),
-    title: "Try Making  Your Own Food Now",
-    description: "Don't wait too long! Let's try make your own food now",
+    img: Constants.Images.onboarding_3,
+    title: Strings.Onboarding.Onboarding_3.title,
+    description: Strings.Onboarding.Onboarding_3.description,
   },
 ];
 const Onboarding = ({ route, navigation }: OnboardingProps) => {
-  const [index, setIndex] = useState(0);
-
+  const { width } = Dimensions.get("window");
+  const [currIndex, setIndex] = React.useState<number>(1);
+  const flatListRef = useRef<any>();
+  const handleGoToNext = () => {
+    if (currIndex != items.length) {
+      const offset = currIndex * 408;
+      flatListRef && flatListRef.current.scrollToOffset({ offset });
+      setIndex(currIndex + 1);
+    } else {
+      navigation.navigate("SignIn");
+    }
+  };
+  const handleSkip = () => {
+    const lastSlideIndex = items.length;
+    const offset = lastSlideIndex * (width + 20);
+    flatListRef && flatListRef.current.scrollToOffset({ offset });
+    setIndex(lastSlideIndex);
+  };
+  const updateCurrentSlideIndex = (e: any) => {
+    const contentOffsetX = e.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(contentOffsetX / width);
+    setIndex(currentIndex);
+  };
   return (
-    <View>
+    <SafeAreaView>
       <FlatList
+        ref={flatListRef}
         data={items}
-        renderItem={({ item }) => <OnboardItem item={item} />}
+        keyExtractor={(item) => String(item.id)}
+        onMomentumScrollEnd={updateCurrentSlideIndex}
+        renderItem={({ item }) => (
+          <OnboardItem
+            item={item}
+            handleGoToNext={handleGoToNext}
+            handleSkip={handleSkip}
+          />
+        )}
+        showsHorizontalScrollIndicator={false}
         horizontal
-        pagingEnabled={false}
+        pagingEnabled
         snapToAlignment="center"
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

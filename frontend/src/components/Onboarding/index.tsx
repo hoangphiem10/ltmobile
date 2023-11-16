@@ -8,72 +8,79 @@ import {
   Easing,
   ImageSourcePropType,
   ImageBackground,
+  GestureResponderEvent,
 } from "react-native";
 import React from "react";
-const { width, height } = Dimensions.get("screen");
+import TPQKButton from "../Button/TPQKButton";
 export interface IBoardingItem {
   id: number;
   img: ImageSourcePropType;
   title: string;
   description: string;
 }
-const OnboardItem = ({ item }: { item: IBoardingItem }) => {
-  const translateYImage = new Animated.Value(40);
-  Animated.timing(translateYImage, {
-    toValue: 0,
-    duration: 1000,
-    useNativeDriver: true,
-    easing: Easing.bounce,
-  }).start();
-
+interface IOnboardItemProps {
+  item: IBoardingItem;
+  handleGoToNext: () => void;
+  handleSkip: () => void;
+}
+const OnboardItem = ({
+  item,
+  handleGoToNext,
+  handleSkip,
+}: IOnboardItemProps) => {
   return (
-    <View style={styles.container}>
-      <Animated.Image
+    <View>
+      <ImageBackground
         source={item.img}
-        resizeMode="contain"
-        style={[
-          styles.image,
-          {
-            transform: [
-              {
-                translateY: translateYImage,
-              },
-            ],
-          },
-        ]}
-      />
-      <View style={styles.content}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-      </View>
+        resizeMode="cover"
+        style={styles.image}
+      >
+        <View style={styles.content}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.description}>{item.description}</Text>
+          <TPQKButton text="Next" style={styles.btn} onPress={handleGoToNext} />
+          <TPQKButton text="Skip" style={styles.skipBtn} onPress={handleSkip} />
+        </View>
+      </ImageBackground>
     </View>
   );
 };
 
 export default OnboardItem;
+
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: "100%",
-    // alignItems: "center",
-  },
-  image: {
-    flex: 0.6,
-    width: "100%",
-    // height: "100%",
-  },
   content: {
-    flex: 0.4,
+    flex: 1,
     alignItems: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
+    justifyContent: "flex-end",
   },
   description: {
-    fontSize: 18,
-    // marginVertical: 12,
-    color: "#333",
+    color: "white",
+    fontSize: 13,
+    marginTop: 10,
+    textAlign: "center",
+    lineHeight: 23,
+  },
+  title: {
+    color: "white",
+    fontSize: 22,
+    fontWeight: "bold",
+    marginTop: 20,
+    textAlign: "center",
+  },
+  image: {
+    height: "100%",
+    width: 402,
+  },
+  btn: {
+    marginTop: 20,
+    width: "50%",
+  },
+  skipBtn: {
+    backgroundColor: "transparent",
+    width: "10%",
+    fontSize: 30,
+    marginTop: 10,
+    marginBottom: 70,
   },
 });

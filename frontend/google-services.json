@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145461849105",
+    "project_id": "btl-ltmobile",
+    "storage_bucket": "btl-ltmobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145461849105:android:643734d135d1bb157195b0",
+        "android_client_info": {
+          "package_name": "com.hcmut.ltmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfXK0z0nWhE5snNOYlc0fdXxpx9sLWNnY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

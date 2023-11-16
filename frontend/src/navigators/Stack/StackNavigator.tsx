@@ -12,9 +12,6 @@ const StackNavigator = () => {
       <Stack.Screen
         name={"Onboarding"}
         component={Onboarding}
-        // options={{
-        //   header: (props) => <TQPKHeader isBack={false} {...props} />,
-        // }}
         options={{ headerShown: false }}
       />
       <Stack.Screen

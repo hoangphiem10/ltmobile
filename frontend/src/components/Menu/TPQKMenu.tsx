@@ -24,7 +24,6 @@ const TPQKMenu = <T extends IMenuOptions>({
   return (
     <Menu>
       <MenuTrigger>
-        {/* <TPQKIconButton icon="ellipsis-horizontal" /> */}
         <Icon name="ellipsis-horizontal" color="black" size={20} />
       </MenuTrigger>
       <MenuOptions optionsContainerStyle={styles.menuOptions}>

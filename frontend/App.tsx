@@ -7,8 +7,23 @@ import { store } from "./src/redux/store";
 import { Provider } from "react-redux";
 import TQPKToast from "./src/components/Toast/TQPKToast";
 import StackNavigator from "./src/navigators/Stack/StackNavigator";
-
+import FCMService from "./src/utils/FCMService";
+import messaging from "@react-native-firebase/messaging";
+import { useEffect } from "react";
+// Handle background messages using setBackgroundMessageHandler
+messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+  console.log("Message handled in the background!", remoteMessage);
+});
 export default function App() {
+  useEffect(() => {
+    FCMService.requestUserPermission();
+    FCMService.notificationListener();
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      console.log(remoteMessage);
+    });
+
+    return unsubscribe;
+  }, []);
   return (
     <SafeAreaProvider>
       <Provider store={store}>
