@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MenuProvider } from "react-native-popup-menu";
@@ -9,7 +9,9 @@ import TQPKToast from "./src/components/Toast/TQPKToast";
 import StackNavigator from "./src/navigators/Stack/StackNavigator";
 import FCMService from "./src/utils/FCMService";
 import messaging from "@react-native-firebase/messaging";
+import dynamicLinks from "@react-native-firebase/dynamic-links";
 import { useEffect } from "react";
+import DLService from "./src/utils/DLService";
 // Handle background messages using setBackgroundMessageHandler
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
   console.log("Message handled in the background!", remoteMessage);
@@ -18,14 +20,18 @@ export default function App() {
   useEffect(() => {
     FCMService.requestUserPermission();
     FCMService.notificationListener();
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+    // DLService.dynamicLinksListener();
+    const unsubscribeFCM = messaging().onMessage(async (remoteMessage) => {
       console.log(remoteMessage);
     });
-
-    return unsubscribe;
+    // const unsubscribeDL = dynamicLinks().onLink(DLService.handleDynamicLink);
+    return () => {
+      unsubscribeFCM;
+      // unsubscribeDL;
+    };
   }, []);
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={styles.mobileSafeArea}>
       <Provider store={store}>
         <MenuProvider>
           <NavigationContainer>
@@ -37,3 +43,10 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  mobileSafeArea: {
+    flex: 1,
+    paddingTop: Platform.OS === "android" ? 25 : 0,
+  },
+});

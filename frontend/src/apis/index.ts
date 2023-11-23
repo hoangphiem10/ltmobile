@@ -23,15 +23,7 @@ const headers: Readonly<Record<string, string | boolean>> = {
   "Access-Control-Allow-Credentials": true,
   "X-Requested-With": "XMLHttpRequest",
 };
-const Config = {
-  baseURL: Constants.API.BASE_URL,
-  method: {
-    get: "GET",
-    post: "POST",
-    put: "PUT",
-    delete: "DELETE",
-  },
-};
+
 const injectToken = async (config: any) => {
   try {
     let date = new Date();
@@ -61,7 +53,7 @@ class Http {
   }
   initHttp() {
     const http = axios.create({
-      baseURL: Config.baseURL,
+      baseURL: Constants.API.BASE_URL,
       headers,
     });
     http.interceptors.request.use(injectToken, (error) =>

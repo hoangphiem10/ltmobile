@@ -32,7 +32,7 @@ const SignUp = ({ route, navigation }: SignUpProps) => {
       });
   };
   return (
-    <SafeAreaView style={SignUpStyles.container}>
+    <View style={SignUpStyles.container}>
       <View style={SignUpStyles.content}>
         <Formik
           initialValues={{
@@ -108,7 +108,7 @@ const SignUp = ({ route, navigation }: SignUpProps) => {
           }}
         </Formik>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

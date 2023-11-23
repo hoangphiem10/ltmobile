@@ -33,14 +33,14 @@ const Profile = () => {
     },
   ];
   return (
-    <SafeAreaView>
+    <View>
       <TQPKHeader
         isBack={false}
         LeftHeader={<View></View>}
         MiddleHeader={<Text>Profile</Text>}
         RightHeader={<TPQKMenu<IMenuOptions> menuOptions={menuOptions} />}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -20,11 +20,13 @@ class FCMService {
       PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
       );
+      this.getDevideToken();
     }
   };
   getDevideToken = async () => {
     await messaging().registerDeviceForRemoteMessages();
     const token = await messaging().getToken();
+    console.log("fcmToken", token);
     // save the token to the db
     await Helper.Secure.setString("fcmToken", token);
   };

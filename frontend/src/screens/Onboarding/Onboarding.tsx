@@ -3,6 +3,7 @@ import {
   FlatList,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  View,
 } from "react-native";
 import React, { useRef } from "react";
 import OnboardItem, { IBoardingItem } from "../../components/Onboarding";
@@ -58,7 +59,7 @@ const Onboarding = ({ route, navigation }: OnboardingProps) => {
     setIndex(currentIndex);
   };
   return (
-    <SafeAreaView>
+    <View>
       <FlatList
         ref={flatListRef}
         data={items}
@@ -76,7 +77,7 @@ const Onboarding = ({ route, navigation }: OnboardingProps) => {
         pagingEnabled
         snapToAlignment="center"
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

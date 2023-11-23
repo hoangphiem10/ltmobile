@@ -1,6 +1,6 @@
 export const Constants = {
   API: {
-    BASE_URL: "http://localhost:8000/api/",
+    BASE_URL: "http://192.168.5.132:8000/api/", //PHIEM
   },
   STYLES: {
     CONSOLE_LOG_SUCCESS: "background:green;",

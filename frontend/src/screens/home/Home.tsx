@@ -42,7 +42,7 @@ const Home = ({ route, navigation }: HomeProps) => {
     </View>
   );
   return (
-    <SafeAreaView style={HomeStyles.constainer}>
+    <View style={HomeStyles.constainer}>
       <TQPKHeader
         isBack={false}
         LeftHeader={<LeftHeader />}
@@ -61,7 +61,7 @@ const Home = ({ route, navigation }: HomeProps) => {
           styleButton={HomeStyles.searchBtn}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

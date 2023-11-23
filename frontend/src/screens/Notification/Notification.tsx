@@ -5,13 +5,13 @@ import { NotificationStyles } from "./style";
 
 const Notification = () => {
   return (
-    <SafeAreaView>
+    <View>
       <TQPKHeader
         isBack={false}
         styleHeader={NotificationStyles.headerContent}
         MiddleHeader={<Text>Notifications</Text>}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

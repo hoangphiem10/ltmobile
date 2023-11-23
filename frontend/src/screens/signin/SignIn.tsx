@@ -1,6 +1,5 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Formik, FormikProps } from "formik";
 import TQPKTextInput from "../../components/TextInput/TQPKTextInput";
 import { signInStyles } from "./style";
@@ -52,7 +51,7 @@ const SignIn = ({ route, navigation }: SignInProps) => {
       });
   };
   return (
-    <SafeAreaView style={signInStyles.container}>
+    <View style={signInStyles.container}>
       <View style={signInStyles.content}>
         <Formik
           initialValues={{ email: "", password: "" }}
@@ -114,7 +113,7 @@ const SignIn = ({ route, navigation }: SignInProps) => {
           </Text>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

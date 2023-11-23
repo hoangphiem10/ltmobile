@@ -5,13 +5,13 @@ import { SavedRecipesStyles } from "./style";
 
 const SavedRecipes = () => {
   return (
-    <SafeAreaView>
+    <View>
       <TQPKHeader
         isBack={false}
         styleHeader={SavedRecipesStyles.headerContent}
         MiddleHeader={<Text>Saved recipes</Text>}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
