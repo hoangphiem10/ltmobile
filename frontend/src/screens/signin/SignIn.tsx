@@ -18,6 +18,7 @@ import { userLoggedIn } from "../../redux/features/auth/authSlice";
 import { AxiosResponse } from "axios";
 import { Helper } from "../../helper/helper";
 import { Screens } from "../../constants/Screens";
+import TPQKText from "../../components/Text/TPQKText";
 const SignIn = ({ route, navigation }: SignInProps) => {
   const dispatch = useAppDispatch();
   const handleSubmit = (values: ISignInRequest) => {
@@ -105,12 +106,11 @@ const SignIn = ({ route, navigation }: SignInProps) => {
           }}
         </Formik>
         <View style={signInStyles.navigate}>
-          <Text
-            style={signInStyles.naviagteText}
+          <TPQKText
+            text={"Sign up"}
+            styleText={signInStyles.naviagteText}
             onPress={() => navigation.push(Screens.SIGN_UP)}
-          >
-            Sign up
-          </Text>
+          />
         </View>
       </View>
     </View>

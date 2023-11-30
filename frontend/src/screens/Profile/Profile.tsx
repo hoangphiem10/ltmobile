@@ -3,6 +3,7 @@ import React from "react";
 import TQPKHeader from "../../components/Header/TQPKHeader";
 import TPQKIconButton from "../../components/IconButton/TPQKIconButton";
 import TPQKMenu from "../../components/Menu/TPQKMenu";
+import TPQKText from "../../components/Text/TPQKText";
 export interface IMenuOptions {
   id: string;
   icon: React.ReactNode;
@@ -37,7 +38,7 @@ const Profile = () => {
       <TQPKHeader
         isBack={false}
         LeftHeader={<View></View>}
-        MiddleHeader={<Text>Profile</Text>}
+        MiddleHeader={<TPQKText text={"Profile"} />}
         RightHeader={<TPQKMenu<IMenuOptions> menuOptions={menuOptions} />}
       />
     </View>

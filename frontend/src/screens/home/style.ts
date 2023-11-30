@@ -41,4 +41,36 @@ export const HomeStyles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 12,
   },
+  specialOffer: {
+    marginLeft: 30,
+    marginBottom: 10,
+  },
+  TrendingToday: {
+    marginLeft: 30,
+    marginBottom: 10,
+    marginTop: -15,
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  image: {
+    marginLeft: 30,
+    width: 330,
+    height: 145,
+    resizeMode: "contain",
+  },
+  trendingCard: {
+    width: 130,
+    height: 200,
+    resizeMode: "contain",
+  },
+  styleViewCard: {
+    marginLeft: 30,
+  },
+  newRecipes: {
+    marginTop: 15,
+    marginBottom: 10,
+    marginLeft: 30,
+  },
 });

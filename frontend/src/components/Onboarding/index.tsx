@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import React from "react";
 import TPQKButton from "../Button/TPQKButton";
+import TPQKText from "../Text/TPQKText";
 export interface IBoardingItem {
   id: number;
   img: ImageSourcePropType;
@@ -36,8 +37,8 @@ const OnboardItem = ({
         style={styles.image}
       >
         <View style={styles.content}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.description}>{item.description}</Text>
+          <TPQKText text={item.title} style={styles.title} />
+          <TPQKText text={item.description} styleText={styles.description} />
           <TPQKButton text="Next" style={styles.btn} onPress={handleGoToNext} />
           <TPQKButton text="Skip" style={styles.skipBtn} onPress={handleSkip} />
         </View>

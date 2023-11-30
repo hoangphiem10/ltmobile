@@ -4,9 +4,17 @@ import {
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
 import React from "react";
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
+import {
+  Platform,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import TPQKText from "../Text/TPQKText";
 
 interface HeaderProps extends Partial<NativeStackHeaderProps> {
   isBack?: boolean;
@@ -44,7 +52,7 @@ const TQPKHeader = ({
         {LeftHeader && <View>{LeftHeader}</View>}
         {MiddleHeader && <View>{MiddleHeader}</View>}
         {RightHeader && <View>{RightHeader}</View>}
-        {options && <Text style={styles.title}>{options?.title}</Text>}
+        {options && <TPQKText text={options.title} styleText={styles.title} />}
       </View>
     </View>
   );
@@ -52,6 +60,7 @@ const TQPKHeader = ({
 
 const styles = StyleSheet.create({
   headerContainer: {
+    paddingTop: Platform.OS === "android" ? 30 : 0,
     paddingLeft: 30,
     paddingRight: 30,
   },

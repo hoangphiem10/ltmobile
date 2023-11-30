@@ -1,5 +1,4 @@
 import { StatusBar } from "expo-status-bar";
-import { Platform, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MenuProvider } from "react-native-popup-menu";
@@ -31,7 +30,8 @@ export default function App() {
     };
   }, []);
   return (
-    <SafeAreaProvider style={styles.mobileSafeArea}>
+    <SafeAreaProvider>
+      <StatusBar hidden />
       <Provider store={store}>
         <MenuProvider>
           <NavigationContainer>
@@ -43,10 +43,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  mobileSafeArea: {
-    flex: 1,
-    paddingTop: Platform.OS === "android" ? 25 : 0,
-  },
-});

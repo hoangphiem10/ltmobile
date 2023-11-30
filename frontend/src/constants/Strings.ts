@@ -2,6 +2,9 @@ export const Strings = {
   Home: {
     headerTitle: "Hello",
     headerDescription: "What are you cooking today?",
+    specialOffer: "Special offer",
+    trendingToday: "Trending Today",
+    newRecipes: "New Recipes",
   },
   Onboarding: {
     Onboarding_1: {

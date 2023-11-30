@@ -8,6 +8,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+import TPQKText from "../Text/TPQKText";
 
 interface ButtonProps {
   text: string;
@@ -44,7 +45,7 @@ const TPQKButton = ({
           ) : (
             <View style={styles.buttonContent}>
               {children}
-              <Text style={styles.buttonText}>{text}</Text>
+              <TPQKText text={text} styleText={styles.buttonText} />
             </View>
           )}
         </View>
