@@ -12,3 +12,6 @@ Cách run source backend:
 Cách run source frontend:
 1: cd frontend
 2: npx expo start
+
+Swagger API documents: <BACKEND_ENDPOINT>/api
+Example: http://localhost:8000/api
