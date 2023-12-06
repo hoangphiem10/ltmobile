@@ -61,7 +61,7 @@ export class AuthService {
     if (!user) {
       throw new HttpException(
         'Email doesn not exist !',
-        HttpStatus.UNAUTHORIZED,
+        HttpStatus.NOT_FOUND,
       );
     }
 
