@@ -22,4 +22,7 @@ export const Strings = {
       description: "Don't wait too long! Let's try make your own food now",
     },
   },
+  Search_Recipes: {
+    SearchResults: "Search Results"
+  }
 };

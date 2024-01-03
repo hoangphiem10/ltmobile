@@ -1,10 +1,12 @@
 import React from "react";
-import { SignIn, SignUp, Onboarding } from "../../screens";
+import { SignIn, SignUp, Onboarding, SearchRecipes } from "../../screens";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TQPKHeader from "../../components/Header/TQPKHeader";
 import { StackParamList } from "./StackNavigatorType";
 import BottomNavigator from "../Bottom/BottomNavigator";
 import { Screens } from "../../constants/Screens";
+import TPQKText from "../../components/Text/TPQKText";
+import { View } from "react-native";
 const Stack = createNativeStackNavigator<StackParamList>();
 
 const StackNavigator = () => {
@@ -33,6 +35,21 @@ const StackNavigator = () => {
         name={Screens.MAIN_APP}
         component={BottomNavigator}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={Screens.SEARCH_RECIPES}
+        component={SearchRecipes}
+        options={{
+          header: (props) => (
+            <TQPKHeader
+              {...props}
+              // style={{ backgroundColor: "white" }}
+              LeftHeader={<View></View>}
+              MiddleHeader={<TPQKText text={"Search recipes"} />}
+              RightHeader={<View></View>}
+            />
+          ),
+        }}
       />
     </Stack.Navigator>
   );

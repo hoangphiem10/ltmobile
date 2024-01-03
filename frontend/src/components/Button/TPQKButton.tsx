@@ -4,6 +4,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -17,6 +18,7 @@ interface ButtonProps {
   disabled?: boolean;
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  styleTextBtn? : StyleProp<TextStyle>,
   type?: string;
 }
 const TPQKButton = ({
@@ -26,6 +28,7 @@ const TPQKButton = ({
   disabled = false,
   children,
   style = {},
+  styleTextBtn = {},
   type = "",
 }: ButtonProps) => {
   return (
@@ -45,7 +48,7 @@ const TPQKButton = ({
           ) : (
             <View style={styles.buttonContent}>
               {children}
-              <TPQKText text={text} styleText={styles.buttonText} />
+              <TPQKText text={text} styleText={[styles.buttonText, styleTextBtn]} />
             </View>
           )}
         </View>

@@ -5,3 +5,4 @@ export { default as Home } from "./home/Home";
 export { default as SavedRecipes } from "./SavedRecipes/SavedRecipes";
 export { default as Notification } from "./Notification/Notification";
 export { default as Profile } from "./Profile/Profile";
+export { default as SearchRecipes } from "./SearchRecipes/SearchRecipes";

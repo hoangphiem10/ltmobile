@@ -6,5 +6,6 @@ export enum Screens {
   SAVED_RECIPES = "SavedRecipes",
   NOTIFICATION = "Notification",
   PROFILE = "Profile",
+  SEARCH_RECIPES = "SearchRecipes",
   MAIN_APP = "MainApp",
 }

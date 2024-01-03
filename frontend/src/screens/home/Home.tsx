@@ -22,7 +22,8 @@ import { Strings } from "../../constants/Strings";
 import TPQKImage from "../../components/Image/TPQKImage";
 import TPQKText from "../../components/Text/TPQKText";
 import TPQKTrending from "../../components/Card/TPQKTrending";
-import TPQKRecipe from "../../components/Card/TPQKRecipe";
+import { Screens } from "../../constants/Screens";
+import TPQKNewRecipe from "../../components/Card/TPQKNewRecipe";
 export interface TrendingType {
   id: string;
   img: ImageSourcePropType;
@@ -41,6 +42,8 @@ export interface NewRecipesType {
 const Home = ({ route, navigation }: HomeProps) => {
   const userLoggedIn = useAppSelector(currUser);
   const [search, setSearch] = useState("");
+  const [searchError, setSearchError] = useState("");
+
   const { fullname, avatar } = userLoggedIn;
   const trendingList: Array<TrendingType> = [
     {
@@ -121,6 +124,17 @@ const Home = ({ route, navigation }: HomeProps) => {
       styleImage={HomeStyles.headerAvatar}
     />
   );
+
+  const onSearchRecipes = () => {
+    if (search) {
+      if (searchError) setSearchError("");
+      navigation.push(Screens.SEARCH_RECIPES, {
+        searchValue: search,
+      });
+    } else {
+      setSearchError("Please enter the value to search recipes");
+    }
+  };
   return (
     <ScrollView style={HomeStyles.constainer}>
       {/* Header Field */}
@@ -135,12 +149,14 @@ const Home = ({ route, navigation }: HomeProps) => {
           onChangeText={(value) => setSearch(value)}
           value={search}
           placeholder="Search recipe"
+          error={searchError}
         />
         <TPQKIconButton
           icon="restaurant-outline"
           color="white"
           size={20}
           styleButton={HomeStyles.searchBtn}
+          onPress={onSearchRecipes}
         />
       </View>
       {/* Special offer */}
@@ -177,7 +193,7 @@ const Home = ({ route, navigation }: HomeProps) => {
           showsHorizontalScrollIndicator={false}
           horizontal
           data={NewRecipesList}
-          renderItem={({ item }) => <TPQKRecipe item={item} />}
+          renderItem={({ item }) => <TPQKNewRecipe item={item} />}
           keyExtractor={(item) => item.id}
         />
       </View>

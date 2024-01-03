@@ -1,6 +1,6 @@
 export const Constants = {
   API: {
-    BASE_URL: "http://192.168.128.1:8000/api/", //PHIEM
+    BASE_URL: "http://172.21.224.1:8000/api/", //PHIEM
   },
   STYLES: {
     CONSOLE_LOG_SUCCESS: "background:green;",
@@ -18,5 +18,7 @@ export const Constants = {
     home_trending_card_3: require("../assets/images/home_trending_3.png"),
     home_trending_card_4: require("../assets/images/home_trending_4.png"),
     home_trending_card_5: require("../assets/images/home_trending_5.png"),
+    save_recipes_card: require("../assets/images/save_recipes.png"),
+
   },
 };
