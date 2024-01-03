@@ -37,7 +37,7 @@ const OnboardItem = ({
         style={styles.image}
       >
         <View style={styles.content}>
-          <TPQKText text={item.title} style={styles.title} />
+          <TPQKText text={item.title} styleText={styles.title} />
           <TPQKText text={item.description} styleText={styles.description} />
           <TPQKButton text="Next" style={styles.btn} onPress={handleGoToNext} />
           <TPQKButton text="Skip" style={styles.skipBtn} onPress={handleSkip} />

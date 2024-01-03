@@ -6,11 +6,16 @@ import {
 import { TabParamList } from "../Bottom/BottomNavigatorType";
 import { Screens } from "../../constants/Screens";
 
+type SearchRecipesParams = {
+  searchValue: string;
+};
+
 export type StackParamList = {
   Onboarding: undefined;
   SignIn: undefined;
   SignUp: undefined;
   MainApp: NavigatorScreenParams<TabParamList>;
+  SearchRecipes: SearchRecipesParams;
 };
 export type OnboardingProps = NativeStackScreenProps<
   StackParamList,
@@ -23,4 +28,8 @@ export type SignInProps = NativeStackScreenProps<
 export type SignUpProps = NativeStackScreenProps<
   StackParamList,
   Screens.SIGN_UP
+>;
+export type SearchRecipesProps = NativeStackScreenProps<
+  StackParamList,
+  Screens.SEARCH_RECIPES
 >;
